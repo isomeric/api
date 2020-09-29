@@ -1,0 +1,66 @@
+{
+    "asyncapi": "2.0.0",
+    "info": {
+        "title": "isomer",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Isomer API Support",
+            "url": "http://github.com/isomeric/api",
+            "email": "info@isomeric.eu"
+        },
+        "license": {
+            "name": "AGPL 3.0",
+            "url": "http://www.gnu.org/licenses/agpl-3.0.en.html"
+        },
+        "description": "This is a local Isomer API."
+    },
+    "tags": [
+        {
+            "name": "isomer",
+            "description": "Isomer Application Framework"
+        }
+    ],
+    "servers": {
+        "development": {
+            "url": "ws://localhost:15674/ws",
+            "description": "Local rabbitmq server with stomp",
+            "protocol": "stomp",
+            "protocolVersion": "1.2.0"
+        },
+        "docker-compose": {
+            "url": "ws://rabbit_container:15674/ws",
+            "description": "Local docker composer based rabbitmq server with stomp",
+            "protocol": "stomp",
+            "protocolVersion": "1.2.0"
+        }
+    },
+    "channels": {
+        "isomer/ui/configurator": {
+            "subscribe": {
+                "summary": "Get component configuration data",
+                "tags": [
+                    {
+                        "name": "admin",
+                        "description": "Administrative topics"
+                    },
+                    {
+                        "name": "configuration",
+                        "description": "Configuration topics"
+                    }
+                ],
+                "description": "A client requires a schema to validate data or display a form",
+                "operationId": "subscribe",
+                "message": {
+                    "payload": {
+                        "uuid": {
+                            "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                            "type": "string",
+                            "title": "Reference",
+                            "description": "Select an object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
